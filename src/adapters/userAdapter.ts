@@ -8,6 +8,9 @@ export class UserAdapter {
       name: user.name,
       publicRepos: user.public_repos,
       htmlUrl: user.html_url,
+      followers: user.followers,
+      following: user.following,
+      updatedAt: user.updated_at,
     };
   }
 }

@@ -4,6 +4,9 @@ export interface GithubUserApi {
   name: string | null;
   public_repos: number;
   html_url: string;
+  followers: number;
+  following: number;
+  updated_at: string;
 }
 
 export interface User {
@@ -12,4 +15,7 @@ export interface User {
   name: string | null;
   publicRepos: number;
   htmlUrl: string;
+  followers: number;
+  following: number;
+  updatedAt: string;
 }
