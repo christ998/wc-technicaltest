@@ -2,6 +2,7 @@ import './cards-container';
 import './user-card';
 import './error-card';
 import './loading-spinner';
+import './popularity-card';
 import { SearchInput } from './search-input';
 import { UserAdapter } from '../adapters/userAdapter';
 import type { ErrorCard } from './error-card';
@@ -55,14 +56,18 @@ export class DashboardView extends HTMLElement {
     if (this.state === 'success') {
       const userCard = document.createElement('user-card') as UserCard;
       userCard.data = this.payload;
-      console.log('userCard', this.payload, userCard);
       container.appendChild(userCard);
+      
+      const popularityCard = document.createElement('popularity-card');
+      (popularityCard as any).data = this.payload;
+      container.appendChild(popularityCard);
     }
   }
 
   addEvents() {
     const finder = this.shadowRoot!.querySelector<SearchInput>('#finder');
     if (!finder) return;
+    
     finder.addEventListener('loading', (event: Event) => {
       if (event instanceof CustomEvent && event.detail === true) {
         this.state = 'loading';
@@ -70,6 +75,7 @@ export class DashboardView extends HTMLElement {
         this.updateUI();
       }
     });
+    
     finder.addEventListener('error', (event: Event) => {
       if (event instanceof CustomEvent) {
         this.state = 'error';
@@ -77,6 +83,7 @@ export class DashboardView extends HTMLElement {
         this.updateUI();
       }
     });
+    
     this.addEventListener('user-info', (event: Event) => {
       if (event instanceof CustomEvent) {
         this.state = 'success';
