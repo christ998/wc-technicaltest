@@ -1,3 +1,5 @@
+import { config } from '../config/env';
+
 export class SearchInput extends HTMLElement {
   private input!: HTMLInputElement;
   private button!: HTMLButtonElement;
@@ -188,7 +190,7 @@ export class SearchInput extends HTMLElement {
       new CustomEvent('loading', { detail: true, bubbles: true, composed: true })
     );
     
-    fetch(`https://api.github.com/users/${userId}`, { signal: this.controller.signal })
+    fetch(`${config.apiUrl}/users/${userId}`, { signal: this.controller.signal })
       .then((res) => {
         if (!res.ok) throw new Error('Usuario no encontrado');
         return res.json();
